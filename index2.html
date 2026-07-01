@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Media KKA - SD Negeri Kebet | Simbol Pancasila</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --merah:#E5484D;
+    --merah-tua:#C22E33;
+    --kuning:#FFB300;
+    --hijau:#3AA65A;
+    --biru:#2E86D8;
+    --krem:#FFF7E8;
+    --navy:#2D2A4A;
+  }
+  * { font-family: 'Nunito', sans-serif; }
+  h1,h2,h3,h4,.font-display { font-family: 'Baloo 2', cursive; }
+  body{ background-color: var(--krem); }
+
+  .bg-dots{
+    background-image: radial-gradient(var(--kuning) 1.6px, transparent 1.6px);
+    background-size: 22px 22px;
+    background-position: -10px -10px;
+  }
+
+  .card-symbol{
+    perspective: 1200px;
+  }
+  .card-symbol-inner{
+    transition: transform 0.5s cubic-bezier(.4,.2,.2,1);
+  }
+
+  .pop-in{ animation: popIn .4s cubic-bezier(.3,1.6,.5,1) both; }
+  @keyframes popIn{
+    0%{ transform: scale(.7); opacity:0; }
+    100%{ transform: scale(1); opacity:1; }
+  }
+
+  .shake{ animation: shake .5s; }
+  @keyframes shake{
+    10%,90%{ transform: translateX(-2px); }
+    20%,80%{ transform: translateX(4px); }
+    30%,50%,70%{ transform: translateX(-8px); }
+    40%,60%{ transform: translateX(8px); }
+  }
+
+  .bounce-in{ animation: bounceIn .6s; }
+  @keyframes bounceIn{
+    0%{ transform: scale(0.3) rotate(-10deg); opacity:0; }
+    50%{ transform: scale(1.08) rotate(3deg); }
+    70%{ transform: scale(0.95) rotate(-2deg); }
+    100%{ transform: scale(1) rotate(0); opacity:1; }
+  }
+
+  .confetti-piece{
+    position:absolute; top:-10px; border-radius:2px; opacity:.9;
+    animation: fall 2.6s linear forwards;
+  }
+  @keyframes fall{
+    to{ transform: translateY(110vh) rotate(540deg); opacity:0.2; }
+  }
+
+  ::-webkit-scrollbar{ width:10px; }
+  ::-webkit-scrollbar-thumb{ background: var(--kuning); border-radius: 8px; }
+
+  .nav-btn.active{
+    background-color: var(--merah);
+    color:white;
+    box-shadow: 0 4px 0 var(--merah-tua);
+  }
+  .nav-btn{
+    box-shadow: 0 4px 0 rgba(0,0,0,0.08);
+  }
+  .nav-btn:active{ transform: translateY(2px); box-shadow:none; }
+
+  .btn-3d{ box-shadow: 0 6px 0 rgba(0,0,0,0.15); transition: transform .1s, box-shadow .1s; }
+  .btn-3d:active{ transform: translateY(6px); box-shadow: none; }
+
+  .progress-bar-fill{ transition: width .4s ease; }
+</style>
+</head>
+<body class="min-h-screen bg-dots text-[var(--navy)]">
+
+<!-- HEADER -->
+<header class="sticky top-0 z-40 bg-white/90 backdrop-blur border-b-4 border-[var(--kuning)] shadow-sm">
+  <div class="max-w-5xl mx-auto px-4 py-3 flex items-center justify-between gap-3">
+    <div class="flex items-center gap-3">
+      <img src="logo.jpeg" alt="Logo SD Negeri Kebet" class="w-12 h-12 md:w-14 md:h-14 rounded-full object-cover ring-4 ring-[var(--kuning)] bg-white shrink-0">
+      <div>
+        <h1 class="font-display text-lg md:text-2xl font-800 text-[var(--merah-tua)] leading-tight">Media KKA</h1>
+        <p class="text-[11px] md:text-sm font-700 text-[var(--navy)]/70 -mt-1">SD NEGERI KEBET</p>
+      </div>
+    </div>
+    <nav class="flex items-center gap-2">
+      <button id="nav-belajar" class="nav-btn active font-display font-700 text-xs md:text-base px-3 md:px-5 py-2 rounded-2xl transition-all">🏠 Ruang Belajar</button>
+      <button id="nav-kuis" class="nav-btn font-display font-700 text-xs md:text-base px-3 md:px-5 py-2 rounded-2xl bg-white text-[var(--navy)] transition-all">🎯 Tantangan Kuis</button>
+    </nav>
+  </div>
+</header>
+
+<main class="max-w-5xl mx-auto px-4 py-6 md:py-10">
+
+  <!-- ==================== RUANG BELAJAR ==================== -->
+  <section id="page-belajar" class="pop-in">
+    <div class="text-center mb-8">
+      <span class="inline-block bg-[var(--merah)] text-white font-display font-700 text-xs md:text-sm px-4 py-1.5 rounded-full mb-3">Kelas 2 SD • Koding & Kecerdasan Artifisial</span>
+      <h2 class="font-display text-2xl md:text-4xl font-800 text-[var(--merah-tua)]">Ayo Kenali Simbol Pancasila! 🇮🇩</h2>
+      <p class="mt-2 text-sm md:text-base text-[var(--navy)]/80 max-w-xl mx-auto">Klik salah satu kartu burung Garuda di bawah ini untuk melihat makna dan contohnya dalam kehidupan sehari-hari ya!</p>
+    </div>
+
+    <div id="symbol-grid" class="grid grid-cols-2 md:grid-cols-5 gap-3 md:gap-4">
+      <!-- cards injected by JS -->
+    </div>
+
+    <!-- Detail Panel -->
+    <div id="detail-panel" class="hidden mt-6 bg-white rounded-3xl border-4 p-5 md:p-7 shadow-lg pop-in">
+      <div class="flex items-start justify-between gap-3">
+        <div class="flex items-center gap-4">
+          <div id="detail-icon" class="text-5xl md:text-7xl"></div>
+          <div>
+            <p id="detail-sila-num" class="font-display font-700 text-xs md:text-sm uppercase tracking-wide"></p>
+            <h3 id="detail-title" class="font-display text-xl md:text-3xl font-800"></h3>
+          </div>
+        </div>
+        <button id="close-detail" class="shrink-0 w-9 h-9 md:w-10 md:h-10 rounded-full bg-[var(--navy)]/10 hover:bg-[var(--navy)]/20 font-800 text-lg">✕</button>
+      </div>
+
+      <div class="mt-5 grid md:grid-cols-2 gap-4">
+        <div class="bg-[var(--krem)] rounded-2xl p-4 border-2 border-dashed">
+          <p class="font-display font-700 text-sm mb-1 text-[var(--merah-tua)]">📖 Apa Maknanya?</p>
+          <p id="detail-makna" class="text-sm md:text-base leading-relaxed"></p>
+        </div>
+        <div class="bg-[var(--krem)] rounded-2xl p-4 border-2 border-dashed">
+          <p class="font-display font-700 text-sm mb-1 text-[var(--merah-tua)]">🧸 Contoh di Kehidupan Sehari-hari</p>
+          <p id="detail-contoh" class="text-sm md:text-base leading-relaxed"></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="text-center mt-8">
+      <button id="go-to-quiz" class="btn-3d font-display font-700 text-base md:text-lg text-white bg-[var(--hijau)] px-8 py-3 rounded-2xl">Aku Sudah Siap! Mulai Kuis 🚀</button>
+    </div>
+  </section>
+
+  <!-- ==================== TANTANGAN KUIS ==================== -->
+  <section id="page-kuis" class="hidden">
+
+    <!-- Kuis intro -->
+    <div id="quiz-intro" class="text-center bg-white rounded-3xl border-4 border-[var(--biru)] p-6 md:p-10 shadow-lg pop-in">
+      <div class="text-6xl mb-2">🎯</div>
+      <h2 class="font-display text-2xl md:text-3xl font-800 text-[var(--biru)]">Tantangan Kuis Pancasila</h2>
+      <p class="mt-2 text-sm md:text-base text-[var(--navy)]/80">Ada 10 soal seru menanti kamu. Jawab dengan teliti, ya. Semangat! 💪</p>
+      <button id="start-quiz" class="btn-3d mt-6 font-display font-700 text-base md:text-lg text-white bg-[var(--merah)] px-8 py-3 rounded-2xl">Mulai Kuis</button>
+    </div>
+
+    <!-- Kuis berjalan -->
+    <div id="quiz-running" class="hidden">
+      <div class="flex items-center justify-between gap-3 mb-3">
+        <div class="flex-1 h-4 bg-white rounded-full overflow-hidden border-2 border-[var(--navy)]/10">
+          <div id="progress-bar" class="progress-bar-fill h-full bg-[var(--hijau)]" style="width:0%"></div>
+        </div>
+        <span id="progress-label" class="font-display font-700 text-xs md:text-sm shrink-0">Soal 1/10</span>
+      </div>
+
+      <div class="flex items-center justify-between mb-4">
+        <div class="font-display font-700 text-sm md:text-base bg-[var(--kuning)] text-[var(--navy)] px-4 py-1.5 rounded-full">⭐ Skor: <span id="score-live">0</span></div>
+        <div class="font-display font-700 text-sm md:text-base bg-white px-4 py-1.5 rounded-full border-2 border-[var(--navy)]/10">✅ <span id="correct-live">0</span> &nbsp; ❌ <span id="wrong-live">0</span></div>
+      </div>
+
+      <div id="question-card" class="bg-white rounded-3xl border-4 p-5 md:p-7 shadow-lg">
+        <p id="question-text" class="font-display text-lg md:text-2xl font-700 mb-5 leading-snug"></p>
+        <div id="options-list" class="grid gap-3"></div>
+        <div id="feedback-box" class="hidden mt-4 rounded-2xl p-4 font-display font-700 text-sm md:text-base"></div>
+      </div>
+
+      <div class="text-right mt-4">
+        <button id="next-question" disabled class="btn-3d font-display font-700 text-sm md:text-base text-white bg-[var(--biru)] px-6 py-2.5 rounded-2xl opacity-40 cursor-not-allowed">Lanjut ➡️</button>
+      </div>
+    </div>
+
+    <!-- Kuis selesai -->
+    <div id="quiz-result" class="hidden text-center bg-white rounded-3xl border-4 border-[var(--kuning)] p-6 md:p-10 shadow-lg relative overflow-hidden">
+      <div id="confetti-holder" class="pointer-events-none absolute inset-0 overflow-hidden"></div>
+      <div id="result-emoji" class="text-7xl mb-2 relative"></div>
+      <h2 class="font-display text-2xl md:text-3xl font-800 relative">Kuis Selesai!</h2>
+      <p id="result-message" class="mt-2 text-sm md:text-base text-[var(--navy)]/80 relative"></p>
+      <div class="mt-5 flex justify-center gap-3 md:gap-6 relative flex-wrap">
+        <div class="bg-[var(--krem)] rounded-2xl px-5 py-3 border-2">
+          <p class="text-2xl font-800 font-display text-[var(--merah-tua)]" id="result-score">0</p>
+          <p class="text-xs font-700">Skor</p>
+        </div>
+        <div class="bg-[var(--krem)] rounded-2xl px-5 py-3 border-2">
+          <p class="text-2xl font-800 font-display text-[var(--hijau)]" id="result-correct">0</p>
+          <p class="text-xs font-700">Benar</p>
+        </div>
+        <div class="bg-[var(--krem)] rounded-2xl px-5 py-3 border-2">
+          <p class="text-2xl font-800 font-display text-[var(--merah)]" id="result-wrong">0</p>
+          <p class="text-xs font-700">Salah</p>
+        </div>
+      </div>
+      <button id="play-again" class="btn-3d mt-6 font-display font-700 text-base md:text-lg text-white bg-[var(--hijau)] px-8 py-3 rounded-2xl relative">🔄 Main Lagi</button>
+    </div>
+  </section>
+
+</main>
+
+<!-- FOOTER -->
+<footer class="mt-10 border-t-4 border-[var(--kuning)] bg-white/90">
+  <div class="max-w-5xl mx-auto px-4 py-5 flex items-center justify-center gap-3 text-center">
+    <img src="foto.jpg" alt="Foto Aly Mufti" class="w-10 h-10 rounded-full object-cover ring-2 ring-[var(--merah)] bg-white shrink-0">
+    <p class="text-xs md:text-sm font-700 text-[var(--navy)]/80">Dikembangkan oleh: <span class="text-[var(--merah-tua)]">Aly Mufti</span></p>
+  </div>
+</footer>
+
+<script>
+/* ============ DATA MATERI ============ */
+const PANCASILA = [
+  {
+    sila: 1,
+    romawi: "Sila ke-1",
+    judul: "Bintang",
+    icon: "⭐",
+    color: "#FFB300",
+    text: "Ketuhanan Yang Maha Esa",
+    makna: "Simbol bintang emas berarti kita semua percaya dan beribadah kepada Tuhan sesuai agama masing-masing. Cahaya bintang melambangkan Tuhan sebagai cahaya penerang bagi manusia.",
+    contoh: "Berdoa sebelum makan dan belajar, rajin beribadah, serta menghormati teman yang beribadah berbeda agama."
+  },
+  {
+    sila: 2,
+    romawi: "Sila ke-2",
+    judul: "Rantai",
+    icon: "⛓️",
+    color: "#2E86D8",
+    text: "Kemanusiaan yang Adil dan Beradab",
+    makna: "Rantai yang tersambung menggambarkan manusia saling membutuhkan dan harus saling membantu satu sama lain, seperti mata rantai yang tidak terputus.",
+    contoh: "Menolong teman yang jatuh, berbagi bekal, dan bersikap sopan kepada semua orang."
+  },
+  {
+    sila: 3,
+    romawi: "Sila ke-3",
+    judul: "Pohon Beringin",
+    icon: "🌳",
+    color: "#3AA65A",
+    text: "Persatuan Indonesia",
+    makna: "Pohon beringin besar dengan akar yang kuat melambangkan bangsa Indonesia yang bersatu walau berasal dari suku, agama, dan budaya yang berbeda-beda.",
+    contoh: "Bermain bersama teman dari suku dan agama berbeda tanpa membeda-bedakan, serta menjaga kerukunan di kelas."
+  },
+  {
+    sila: 4,
+    romawi: "Sila ke-4",
+    judul: "Kepala Banteng",
+    icon: "🐂",
+    color: "#C22E33",
+    text: "Kerakyatan yang Dipimpin oleh Hikmat Kebijaksanaan dalam Permusyawaratan/Perwakilan",
+    makna: "Kepala banteng melambangkan kekuatan rakyat yang berkumpul untuk bermusyawarah dan mengambil keputusan bersama demi kepentingan bersama.",
+    contoh: "Bermusyawarah memilih ketua kelas, dan mau menerima hasil keputusan bersama walau berbeda pendapat."
+  },
+  {
+    sila: 5,
+    romawi: "Sila ke-5",
+    judul: "Padi dan Kapas",
+    icon: "🌾",
+    color: "#8E44AD",
+    text: "Keadilan Sosial bagi Seluruh Rakyat Indonesia",
+    makna: "Padi melambangkan kecukupan pangan (makanan) dan kapas melambangkan kecukupan sandang (pakaian), artinya semua rakyat Indonesia berhak hidup adil dan sejahtera.",
+    contoh: "Membagi kue sama rata dengan teman, tidak pilih-pilih teman bermain, dan mau berbagi dengan yang membutuhkan."
+  }
+];
+
+/* ============ DATA SOAL KUIS ============ */
+const QUESTIONS = [
+  { q: "Simbol Pancasila yang berbentuk bintang melambangkan sila ke berapa?", opts: ["Sila ke-1", "Sila ke-2", "Sila ke-3", "Sila ke-5"], correct: 0 },
+  { q: "Simbol rantai pada lambang Pancasila melambangkan sila...", opts: ["Ketuhanan Yang Maha Esa", "Kemanusiaan yang Adil dan Beradab", "Persatuan Indonesia", "Keadilan Sosial"], correct: 1 },
+  { q: "Pohon Beringin adalah lambang dari sila ke...", opts: ["1", "2", "3", "4"], correct: 2 },
+  { q: "Apa simbol dari sila ke-4 Pancasila?", opts: ["Bintang", "Kepala Banteng", "Padi dan Kapas", "Rantai"], correct: 1 },
+  { q: "Padi dan Kapas melambangkan sila ke...", opts: ["Ke-2", "Ke-3", "Ke-4", "Ke-5"], correct: 3 },
+  { q: "Jika kita menolong teman yang jatuh, kita mengamalkan sila dengan simbol...", opts: ["Bintang", "Rantai", "Pohon Beringin", "Kepala Banteng"], correct: 1 },
+  { q: "Berdoa sebelum makan adalah contoh pengamalan sila dengan simbol...", opts: ["Bintang", "Rantai", "Padi dan Kapas", "Kepala Banteng"], correct: 0 },
+  { q: "Bermain bersama teman dari suku yang berbeda tanpa membeda-bedakan adalah contoh sila...", opts: ["Ketuhanan Yang Maha Esa", "Kemanusiaan yang Adil dan Beradab", "Persatuan Indonesia", "Keadilan Sosial"], correct: 2 },
+  { q: "Musyawarah untuk memilih ketua kelas adalah contoh pengamalan sila dengan simbol...", opts: ["Padi dan Kapas", "Bintang", "Kepala Banteng", "Rantai"], correct: 2 },
+  { q: "Membagi kue sama rata kepada semua teman adalah contoh pengamalan sila...", opts: ["Ke-1", "Ke-2", "Ke-4", "Ke-5"], correct: 3 }
+];
+
+/* ============ STATE ============ */
+let currentQuestion = 0;
+let score = 0;
+let correctCount = 0;
+let wrongCount = 0;
+let answered = false;
+
+/* ============ RENDER SYMBOL GRID ============ */
+const grid = document.getElementById('symbol-grid');
+PANCASILA.forEach((item, i) => {
+  const card = document.createElement('button');
+  card.className = "card-symbol group bg-white rounded-2xl border-4 p-3 md:p-4 flex flex-col items-center gap-1 shadow hover:-translate-y-1 hover:shadow-xl transition-all";
+  card.style.borderColor = item.color;
+  card.innerHTML = `
+    <div class="card-symbol-inner text-4xl md:text-6xl">${item.icon}</div>
+    <p class="font-display font-700 text-[10px] md:text-xs uppercase tracking-wide" style="color:${item.color}">${item.romawi}</p>
+    <p class="font-display font-700 text-xs md:text-base text-center leading-tight">${item.judul}</p>
+  `;
+  card.addEventListener('click', () => showDetail(i));
+  grid.appendChild(card);
+});
+
+function showDetail(i){
+  const item = PANCASILA[i];
+  const panel = document.getElementById('detail-panel');
+  panel.style.borderColor = item.color;
+  document.getElementById('detail-icon').textContent = item.icon;
+  document.getElementById('detail-sila-num').textContent = item.romawi;
+  document.getElementById('detail-sila-num').style.color = item.color;
+  document.getElementById('detail-title').textContent = item.text;
+  document.getElementById('detail-title').style.color = item.color;
+  document.getElementById('detail-makna').textContent = item.makna;
+  document.getElementById('detail-contoh').textContent = item.contoh;
+  panel.classList.remove('hidden', 'pop-in');
+  void panel.offsetWidth;
+  panel.classList.add('pop-in');
+  panel.scrollIntoView({ behavior:'smooth', block:'nearest' });
+}
+document.getElementById('close-detail').addEventListener('click', () => {
+  document.getElementById('detail-panel').classList.add('hidden');
+});
+
+/* ============ NAVIGASI SPA ============ */
+const pageBelajar = document.getElementById('page-belajar');
+const pageKuis = document.getElementById('page-kuis');
+const navBelajar = document.getElementById('nav-belajar');
+const navKuis = document.getElementById('nav-kuis');
+
+function gotoBelajar(){
+  pageBelajar.classList.remove('hidden');
+  pageKuis.classList.add('hidden');
+  navBelajar.classList.add('active');
+  navKuis.classList.remove('active');
+}
+function gotoKuis(){
+  pageKuis.classList.remove('hidden');
+  pageBelajar.classList.add('hidden');
+  navKuis.classList.add('active');
+  navBelajar.classList.remove('active');
+}
+navBelajar.addEventListener('click', gotoBelajar);
+navKuis.addEventListener('click', gotoKuis);
+document.getElementById('go-to-quiz').addEventListener('click', gotoKuis);
+
+/* ============ QUIZ LOGIC ============ */
+const quizIntro = document.getElementById('quiz-intro');
+const quizRunning = document.getElementById('quiz-running');
+const quizResult = document.getElementById('quiz-result');
+
+document.getElementById('start-quiz').addEventListener('click', startQuiz);
+document.getElementById('play-again').addEventListener('click', startQuiz);
+
+function startQuiz(){
+  currentQuestion = 0;
+  score = 0;
+  correctCount = 0;
+  wrongCount = 0;
+  quizIntro.classList.add('hidden');
+  quizResult.classList.add('hidden');
+  quizRunning.classList.remove('hidden');
+  document.getElementById('confetti-holder').innerHTML = '';
+  renderQuestion();
+}
+
+function renderQuestion(){
+  answered = false;
+  const q = QUESTIONS[currentQuestion];
+  document.getElementById('progress-label').textContent = `Soal ${currentQuestion+1}/${QUESTIONS.length}`;
+  document.getElementById('progress-bar').style.width = `${(currentQuestion/QUESTIONS.length)*100}%`;
+  document.getElementById('score-live').textContent = score;
+  document.getElementById('correct-live').textContent = correctCount;
+  document.getElementById('wrong-live').textContent = wrongCount;
+
+  const card = document.getElementById('question-card');
+  card.style.borderColor = "#2E86D8";
+  document.getElementById('question-text').textContent = q.q;
+
+  const optsList = document.getElementById('options-list');
+  optsList.innerHTML = '';
+  const letters = ['A','B','C','D'];
+  q.opts.forEach((opt, idx) => {
+    const btn = document.createElement('button');
+    btn.className = "option-btn text-left flex items-center gap-3 bg-[var(--krem)] hover:bg-[var(--kuning)]/30 border-2 border-[var(--navy)]/10 rounded-2xl px-4 py-3 font-700 text-sm md:text-base transition-all";
+    btn.innerHTML = `<span class="w-7 h-7 shrink-0 rounded-full bg-white border-2 border-[var(--navy)]/20 flex items-center justify-center font-display font-800 text-xs">${letters[idx]}</span><span>${opt}</span>`;
+    btn.addEventListener('click', () => selectAnswer(idx, btn));
+    optsList.appendChild(btn);
+  });
+
+  document.getElementById('feedback-box').classList.add('hidden');
+  const nextBtn = document.getElementById('next-question');
+  nextBtn.disabled = true;
+  nextBtn.classList.add('opacity-40','cursor-not-allowed');
+  nextBtn.textContent = currentQuestion === QUESTIONS.length - 1 ? "Lihat Hasil 🏁" : "Lanjut ➡️";
+
+  card.classList.remove('pop-in');
+  void card.offsetWidth;
+  card.classList.add('pop-in');
+}
+
+function selectAnswer(idx, btnEl){
+  if(answered) return;
+  answered = true;
+  const q = QUESTIONS[currentQuestion];
+  const allBtns = document.querySelectorAll('#options-list .option-btn');
+  const feedback = document.getElementById('feedback-box');
+  const card = document.getElementById('question-card');
+
+  allBtns.forEach(b => b.disabled = true);
+
+  if(idx === q.correct){
+    btnEl.classList.remove('bg-[var(--krem)]');
+    btnEl.classList.add('bg-[var(--hijau)]', 'text-white', 'border-[var(--hijau)]', 'bounce-in');
+    score += 10;
+    correctCount++;
+    feedback.textContent = "🎉 Benar sekali! Kamu hebat!";
+    feedback.className = "mt-4 rounded-2xl p-4 font-display font-700 text-sm md:text-base bg-green-100 text-green-800 bounce-in";
+    card.style.borderColor = "#3AA65A";
+  } else {
+    btnEl.classList.remove('bg-[var(--krem)]');
+    btnEl.classList.add('bg-[var(--merah)]', 'text-white', 'border-[var(--merah)]', 'shake');
+    allBtns[q.correct].classList.remove('bg-[var(--krem)]');
+    allBtns[q.correct].classList.add('bg-[var(--hijau)]', 'text-white', 'border-[var(--hijau)]');
+    wrongCount++;
+    feedback.textContent = "😅 Belum tepat. Yuk lihat jawaban yang benar!";
+    feedback.className = "mt-4 rounded-2xl p-4 font-display font-700 text-sm md:text-base bg-red-100 text-red-800 shake";
+    card.style.borderColor = "#E5484D";
+  }
+  feedback.classList.remove('hidden');
+
+  document.getElementById('score-live').textContent = score;
+  document.getElementById('correct-live').textContent = correctCount;
+  document.getElementById('wrong-live').textContent = wrongCount;
+
+  const nextBtn = document.getElementById('next-question');
+  nextBtn.disabled = false;
+  nextBtn.classList.remove('opacity-40','cursor-not-allowed');
+}
+
+document.getElementById('next-question').addEventListener('click', () => {
+  if(!answered) return;
+  currentQuestion++;
+  if(currentQuestion >= QUESTIONS.length){
+    showResult();
+  } else {
+    renderQuestion();
+  }
+});
+
+function showResult(){
+  quizRunning.classList.add('hidden');
+  quizResult.classList.remove('hidden');
+  document.getElementById('progress-bar').style.width = '100%';
+
+  document.getElementById('result-score').textContent = score;
+  document.getElementById('result-correct').textContent = correctCount;
+  document.getElementById('result-wrong').textContent = wrongCount;
+
+  let emoji, msg;
+  if(correctCount >= 9){ emoji = "🏆"; msg = "Luar biasa! Kamu Juara Pancasila!"; }
+  else if(correctCount >= 7){ emoji = "🌟"; msg = "Hebat! Kamu sudah paham simbol Pancasila!"; }
+  else if(correctCount >= 5){ emoji = "👍"; msg = "Bagus! Ayo belajar lagi supaya makin pintar!"; }
+  else { emoji = "💪"; msg = "Terus semangat! Yuk pelajari lagi Ruang Belajarnya!"; }
+
+  document.getElementById('result-emoji').textContent = emoji;
+  document.getElementById('result-message').textContent = msg;
+
+  if(correctCount >= 7) launchConfetti();
+}
+
+function launchConfetti(){
+  const holder = document.getElementById('confetti-holder');
+  const colors = ['#E5484D','#FFB300','#3AA65A','#2E86D8','#8E44AD'];
+  for(let i=0;i<40;i++){
+    const piece = document.createElement('div');
+    const size = 6 + Math.random()*6;
+    piece.className = 'confetti-piece';
+    piece.style.left = Math.random()*100 + '%';
+    piece.style.width = size + 'px';
+    piece.style.height = (size*1.6) + 'px';
+    piece.style.backgroundColor = colors[Math.floor(Math.random()*colors.length)];
+    piece.style.animationDelay = (Math.random()*0.6) + 's';
+    piece.style.animationDuration = (2 + Math.random()*1.2) + 's';
+    holder.appendChild(piece);
+  }
+  setTimeout(() => holder.innerHTML = '', 3200);
+}
+</script>
+</body>
+</html>
